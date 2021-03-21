@@ -35,16 +35,14 @@ const userSchema = new mongoose.Schema({
 
 userSchema.virtual('password')
   .set(function (password){
-    this._password = password
     this.salt = this.makeSalt()
     this.hashed_password = this.encryptPassword(password)
   })
-  .get(function (){
-    return this._password
-  })
+
+
 userSchema.methods = {
-  authenticate: function (plain){
-    return this.encryptPassword(plain) === this.hashed_password
+  authenticate: function (password){
+    return this.encryptPassword(password) === this.hashed_password
   },
 
   encryptPassword: function (password) {
@@ -59,7 +57,7 @@ userSchema.methods = {
   },
 
   makeSalt: function (){
-    return Math.round(new Date().valueOf() * Math.random()) + ''
+    return Math.round(+new Date() * Math.random()) + ''
   }
 }
 

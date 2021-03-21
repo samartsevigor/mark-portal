@@ -23,8 +23,9 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 export const signup = (req, res) => {
   const {name, email, password} = req.body
-  User.findOne({email}).exac((err, user) => {
+  User.findOne({email}).exec((err, user) => {
     if (user){
+      console.log('Уже существует')
       return res.status(400).json({
         error: 'Email уже существует'
       })
@@ -38,17 +39,51 @@ export const signup = (req, res) => {
              <p>${process.env.CLIENT_URL}/auth/activate/${token}</p>`
     }
     sgMail.send(emailData).then((sent) => {
-      console.log('EMAIL SENT')
+      console.log('Письмо отправлено')
       return res.json({
         message: `Письмо отправлено на почту ${email}. Следуйте инструкциям.`
       })
     }).catch((error) => {
+      console.log('Ошибка отправки письма', {token})
       return res.json({
         message: error.message
       })
     })
   })
 }
+
+export const accountActivation = (req, res) => {
+  const {token} = req.body
+  if (token){
+    jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION, (error, decode) => {
+      if (error){
+        console.log('Ссылка устарела')
+        return res.json('401').json({
+          error: 'Ссылка устарела.'
+        })
+      }
+      const {name,email,password} = decode
+      const user = new User({name, email, password})
+      user.save((err, user)=> {
+        if (error){
+          console.log('Ошибка сохранения')
+          return res.status(401).json({
+            error: 'Ошибка сохранения пользователя в базе данных'
+          })
+        }
+        console.log('Регистрация успешна')
+        return res.json({
+          message: 'Регистрация завершена. Пожалуйста, войдите.'
+        })
+      })
+    })
+  } else {
+    return res.json({
+      message: 'Что-то пошло не так, попробуйте снова.'
+    })
+  }
+}
+
 
 
 

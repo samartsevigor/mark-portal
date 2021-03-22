@@ -7,7 +7,6 @@ export const signup = (req, res) => {
   const {name, email, password} = req.body
   User.findOne({email}).exec((err, user) => {
     if (user){
-      console.log('Уже существует')
       return res.status(400).json({
         error: 'Email уже существует'
       })

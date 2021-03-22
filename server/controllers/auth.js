@@ -84,6 +84,27 @@ export const accountActivation = (req, res) => {
   }
 }
 
+export const signin = (req, res) => {
+  const {email, password} = req.body
+  User.findOne({email}).exec((error, user) => {
+    if(error || !user){
+      return res.status(401).json({
+        error: 'Пользователя не существует, пожалуйста зарегистрируйтесь.'
+      })
+    }
+    if(!user.authenticate(password)){
+      return res.status(401).json({
+        error: 'Неверные логин или пароль'
+      })
+    }
+    const {_id, name, email, role } = user
+    const token = jwt.sign({_id: user._id, email, name, role}, process.env.JWT_SECRET, {expiresIn: '7d'})
+    return res.json({
+      token,
+      user: {_id, email, name, role}
+    })
+  })
+}
 
 
 

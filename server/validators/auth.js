@@ -13,4 +13,13 @@ const userSignUpValidator = [
     .isLength({min: 6})
     .withMessage('password min 6 characters long')
 ]
-export default userSignUpValidator
+
+const userSignInValidator = [
+  check('email')
+    .isEmail()
+    .withMessage('Must be a valid email'),
+  check('password')
+    .isLength({min: 6})
+    .withMessage('password min 6 characters long')
+]
+export {userSignUpValidator, userSignInValidator}

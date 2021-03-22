@@ -1,7 +1,9 @@
 import User from '../models/user.js'
 import jwt from 'jsonwebtoken'
-import sgMail from '@sendgrid/mail'
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+import mailgun from 'mailgun-js'
+import dotenv from 'dotenv'
+dotenv.config()
+const mg = mailgun({apiKey: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_API_DOMAIN})
 
 export const signup = (req, res) => {
   const {name, email, password} = req.body
@@ -19,16 +21,19 @@ export const signup = (req, res) => {
       html: `<h1>Перейдите по ссылке для активации аккаунта</h1>
              <p>${process.env.CLIENT_URL}/auth/activate/${token}</p>`
     }
-    sgMail.send(emailData).then((sent) => {
-      console.log('Письмо отправлено')
-      return res.json({
-        message: `Письмо отправлено на почту ${email}. Следуйте инструкциям.`
-      })
-    }).catch((error) => {
-      console.log('Ошибка отправки письма', {token})
-      return res.json({
-        message: error.message
-      })
+    mg.messages().send(emailData, (error, body) => {
+      if (error){
+        console.log('Ошибка отправки письма', {token})
+        return res.json({
+          message: error.message
+        })
+      } else {
+        console.log('Письмо отправлено')
+        console.log(body)
+        return res.json({
+          message: `Письмо отправлено на почту ${email}. Следуйте инструкциям.`
+        })
+      }
     })
   })
 }

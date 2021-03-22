@@ -16,7 +16,7 @@ export const signup = (req, res) => {
     const emailData = {
       from: process.env.EMAIL_FROM,
       to: email,
-      subject: `Ссылка активации аккаунта`,
+      subject: 'Ссылка активации аккаунта',
       html: `<h1>Перейдите по ссылке для активации аккаунта</h1>
              <p>${process.env.CLIENT_URL}/auth/activate/${token}</p>`
     }

@@ -7,6 +7,6 @@ const router = express.Router()
 
 router.post('/signup', userSignUpValidator, runValidation,  signup)
 router.post('/account-activation',  accountActivation)
-router.post('/signin', userSignInValidator, signin)
+router.post('/signin', userSignInValidator, runValidation, signin)
 
 export default router

@@ -29,7 +29,6 @@ export const signup = (req, res) => {
         })
       } else {
         console.log('Письмо отправлено')
-        console.log(body)
         return res.json({
           message: `Письмо отправлено на почту ${email}. Следуйте инструкциям.`
         })
@@ -51,7 +50,7 @@ export const accountActivation = (req, res) => {
       const {name,email,password} = decode
       const user = new User({name, email, password})
       user.save((err, user)=> {
-        if (error){
+        if (err){
           console.log('Ошибка сохранения')
           return res.status(401).json({
             error: 'Ошибка сохранения пользователя в базе данных'

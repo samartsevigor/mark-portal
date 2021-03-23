@@ -3,7 +3,7 @@ import authRouters from './routes/auth.js'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
 import cors from 'cors'
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 dotenv.config()
 
 const server = express()
@@ -19,6 +19,7 @@ server.use(cors())
 
 
 server.use('/api', authRouters)
+
 
 
 const port = process.env.PORT || 8000

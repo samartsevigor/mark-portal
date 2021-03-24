@@ -19,7 +19,7 @@ export const signup = (req, res) => {
       to: email,
       subject: 'Ссылка активации аккаунта',
       html: `<h1>Перейдите по ссылке для активации аккаунта</h1>
-             <p>${process.env.CLIENT_URL}/auth/activate/${token}</p>`
+             <p>${process.env.CLIENT_URL}auth/activate/${token}</p>`
     }
     mg.messages().send(emailData, (error, body) => {
       if (error){

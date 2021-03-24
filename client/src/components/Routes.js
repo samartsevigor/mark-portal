@@ -2,6 +2,7 @@ import React from 'react'
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import App from "../App";
 import Signup from "./Signup";
+import Signin from "./Signin";
 
 const Routes = () => {
   return (
@@ -9,6 +10,7 @@ const Routes = () => {
       <Switch>
         <Route exact path="/" component={() => <App />} />
         <Route exact path="/signup" component={() => <Signup />} />
+        <Route exact path="/signin" component={() => <Signin />} />
       </Switch>
     </Router>
   );

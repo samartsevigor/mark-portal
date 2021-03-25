@@ -20,15 +20,16 @@ const SigninForm = () => {
   const handleChange = (e) => {
     setValues({...values, [e.target.name]: e.target.value})
   }
+  const {email, password} = values
   return (
     <form onSubmit={handleSubmit}>
       <div className="mb-3">
         <label htmlFor="email" className="form-label">Email</label>
-        <input type="text" className="form-control" id="email" value={values.email} name="email" onChange={handleChange}/>
+        <input type="text" className="form-control" id="email" value={email} name="email" onChange={handleChange}/>
       </div>
       <div className="mb-3">
         <label htmlFor="password" className="form-label">Password</label>
-        <input type="text" className="form-control" id="password" value={values.password} name="password" onChange={handleChange}/>
+        <input type="text" className="form-control" id="password" value={password} name="password" onChange={handleChange}/>
       </div>
       <button type="submit" className="btn btn-primary">Submit</button>
     </form>

@@ -9,10 +9,10 @@ const Routes = () => {
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={() => <App />} />
-        <Route exact path="/signup" component={() => <Signup />} />
-        <Route exact path="/signin" component={() => <Signin />} />
-        <Route exact path="/auth/activate/:token" component={() => <Activate />} />
+        <Route exact={true} component={() => <App />} />
+        <Route exact={true} path="/signup" component={() => <Signup />} />
+        <Route exact={true} component={() => <Signin />} />
+        <Route eexact={true} path="/auth/activate/:token" component={() => <Activate />} />
       </Switch>
     </Router>
   );

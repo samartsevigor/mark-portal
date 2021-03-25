@@ -1,7 +1,7 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import {Link, NavLink, withRouter} from 'react-router-dom'
 
-const Navbar = () => {
+const Navbar = ({history}) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -13,13 +13,13 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link active" to="/">Home</Link>
+              <NavLink className="nav-link" to="/" exact>Main</NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/signup">Signup</Link>
+              <NavLink className="nav-link" to="/about">About</NavLink>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/signin">Signin</Link>
+              <NavLink className="nav-link" to="/team">Team</NavLink>
             </li>
           </ul>
         </div>
@@ -28,4 +28,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default withRouter(Navbar);

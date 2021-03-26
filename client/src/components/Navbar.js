@@ -16,6 +16,16 @@ const Navbar = ({history}) => {
             <li className="nav-item">
               <NavLink className="nav-link" to="/" exact>Home</NavLink>
             </li>
+            {isAuth() && isAuth().role === 'admin' &&
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/admin">{isAuth().name}</NavLink>
+              </li>
+            }
+            {isAuth() && isAuth().role === 'subscriber' &&
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/private">{isAuth().name}</NavLink>
+            </li>
+            }
             {!isAuth() &&
             <>
               <li className="nav-item">

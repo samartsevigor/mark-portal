@@ -1,6 +1,9 @@
 import React, {useState} from 'react';
 import { toast } from 'react-toastify';
 import axios from 'axios'
+import {authenticate, isAuth} from "./helpers";
+import {Redirect} from "react-router-dom";
+
 
 const SigninForm = () => {
   const [values, setValues] = useState({
@@ -11,6 +14,7 @@ const SigninForm = () => {
     e.preventDefault()
     axios.post(`${process.env.REACT_APP_API}/signin`, values)
       .then((res) => {
+        authenticate(res)
         setValues({email: '', password: ''})
       })
       .catch((error) => {
@@ -22,6 +26,8 @@ const SigninForm = () => {
   }
   const {email, password} = values
   return (
+    <>
+    {isAuth() ? <Redirect to='/' /> : null}
     <form onSubmit={handleSubmit}>
       <div className="mb-3">
         <label htmlFor="email" className="form-label">Email</label>
@@ -33,6 +39,7 @@ const SigninForm = () => {
       </div>
       <button type="submit" className="btn btn-primary">Submit</button>
     </form>
+    </>
   );
 };
 

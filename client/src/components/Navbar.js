@@ -1,5 +1,6 @@
 import React from 'react'
 import {Link, NavLink, withRouter} from 'react-router-dom'
+import {isAuth, signout} from "./helpers";
 
 const Navbar = ({history}) => {
   return (
@@ -11,16 +12,26 @@ const Navbar = ({history}) => {
           <span className="navbar-toggler-icon"/>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
+          <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <NavLink className="nav-link" to="/" exact>Main</NavLink>
+              <NavLink className="nav-link" to="/" exact>Home</NavLink>
             </li>
+            {!isAuth() &&
+            <>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/signin">Signin</NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/signup">Signup</NavLink>
+              </li>
+            </>}
+            {isAuth() &&
             <li className="nav-item">
-              <NavLink className="nav-link" to="/about">About</NavLink>
+              <button className="btn btn-outline-secondary" onClick={() => signout(() =>{
+                history.push('/')
+              })}>Signout</button>
             </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/team">Team</NavLink>
-            </li>
+            }
           </ul>
         </div>
       </div>

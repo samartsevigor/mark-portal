@@ -49,6 +49,7 @@ export const accountActivation = (req, res) => {
       }
       const {name,email,password} = decode
       const user = new User({name, email, password})
+      console.log(user)
       user.save((err, user)=> {
         if (err){
           console.log('Ошибка сохранения')
@@ -90,8 +91,6 @@ export const signin = (req, res) => {
     })
   })
 }
-
-
 
 
 

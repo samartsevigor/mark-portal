@@ -1,5 +1,6 @@
 import User from '../models/user.js'
 import jwt from 'jsonwebtoken'
+import expressJwt from "express-jwt";
 import mailgun from 'mailgun-js'
 import dotenv from 'dotenv'
 dotenv.config()
@@ -92,7 +93,10 @@ export const signin = (req, res) => {
   })
 }
 
-
+export const requireAuth = expressJwt({
+  secret: process.env.JWT_SECRET,
+  algorithms: ['SH256']
+})
 
 
 

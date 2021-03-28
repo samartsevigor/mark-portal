@@ -1,5 +1,6 @@
 import express from 'express'
 import authRouters from './routes/auth.js'
+import userRouters from './routes/user.js'
 import morgan from 'morgan'
 import dotenv from 'dotenv'
 import cors from 'cors'
@@ -19,6 +20,7 @@ server.use(cors())
 
 
 server.use('/api', authRouters)
+server.use('/api', userRouters)
 
 
 

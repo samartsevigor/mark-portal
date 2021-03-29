@@ -95,7 +95,7 @@ export const signin = (req, res) => {
 
 export const requireAuth = expressJwt({
   secret: process.env.JWT_SECRET,
-  algorithms: ['SH256']
+  algorithms: ['HS256']
 })
 
 

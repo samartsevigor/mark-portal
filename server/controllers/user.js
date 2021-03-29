@@ -17,6 +17,10 @@ export const userInfo = (req, res) => {
   })
 }
 
+export const updateUser = (req, res) => {
+  console.log(req.user)
+    res.json({ok: "ok"})
+}
 
 
 

@@ -5,6 +5,6 @@ import {requireAuth} from "../controllers/auth.js"
 const router = express.Router()
 
 router.get('/user/:id', requireAuth, userInfo)
-router.put('/user/update/:id', requireAuth, updateUser)
+router.put('/user/update', requireAuth, updateUser)
 
 export default router
